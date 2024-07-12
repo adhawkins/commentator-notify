@@ -1,0 +1,15 @@
+[Unit]
+AssertPathExists=/home/andy/software/commentator-notify
+
+[Service]
+WorkingDirectory=/home/andy/software/commentator-notify/webservice
+ExecStart=/home/andy/software/commentator-notify/webservice/venv/bin/python3 -u /home/andy/software/commentator-notify/webservice/webservice.py
+Restart=always
+PrivateTmp=true
+NoNewPrivileges=true
+StandardError=journal
+StandardOutput=journal
+StandardInput=null
+
+[Install]
+WantedBy=default.target
