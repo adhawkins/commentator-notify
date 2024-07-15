@@ -1,3 +1,27 @@
+import canAutoplay from 'https://cdn.jsdelivr.net/npm/can-autoplay@3.0.2/+esm';
+
+let timer = null;
+
+async function detectAutoplay() {
+	console.log("In detectAutoplay");
+
+	const audioControl = document.getElementById('audioalert');
+
+	canAutoplay.audio().then((ret) => {
+		if (ret.result === true) {
+			audioControl.style.display = "none";
+			if (timer) {
+				console.log("Clearing timer");
+				clearTimeout(timer);
+				timer = null;
+			}
+		} else {
+			audioControl.style.display = "block";
+			timer = setTimeout(detectAutoplay, 5000);
+		}
+	})
+}
+
 function connectWS() {
 	console.log("Connecting")
 
@@ -43,7 +67,7 @@ function voiceChanged() {
 	const url = new URL(window.location);
 	url.searchParams.set('voice', selectedVoice);
 
-	let urlControl = document.getElementById('url');
+	const urlControl = document.getElementById('url');
 	const newA = document.createElement('a');
 	newA.setAttribute('href', url.href);
 	newA.innerHTML = url.href;
@@ -87,3 +111,10 @@ if ("onvoiceschanged" in window.speechSynthesis) {
 }
 
 connectWS();
+detectAutoplay();
+
+window.say = say;
+window.voiceChanged = voiceChanged;
+window.detectAutoplay = detectAutoplay;
+
+console.log(navigator.userAgent);

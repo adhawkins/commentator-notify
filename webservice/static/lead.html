@@ -1,10 +1,12 @@
 <html>
 	<head>
 		<title>Lead commentator</title>
-		<script src="lead.js"></script>
+		<script type="module" src="lead.js"></script>
+		<link rel="stylesheet" href="lead.css">
 	</head>
-	<body>
+	<body onclick="detectAutoplay()">
 		<h1>Lead commentator</h1>
+		<div id="audioalert">This web page is unable to play audio. Please click anywhere on the page to enable audio to play.</div>
 		<select id="voice" onchange="voiceChanged();">
 			<option>None</option>
 		</select>
